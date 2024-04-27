@@ -1,35 +1,29 @@
-/*
-*   Написать функцию/метод, которая возвращает массив простых чисел в диапазоне (2 числа - минимальное и максимальное) заданных чисел.
-Например, на вход переданы 2 числа: от 11 до 20  (диапазон считается включая граничные значения).
- */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Math.sqrt;
+
 public class Main {
-    public static int[] Prime(int a,int b){
-        List<Integer> prime = new ArrayList<Integer>();
-
-        for (int i = a; i <= b; i++ ){
-            boolean isPrime = true;
-            for(int j = 2; j <= i / 2; j++){
-                if (i % j == 0){
-                    isPrime = false;
-                    break;
-                }
-            }
-            if (isPrime) prime.add(i) ;
+    public static void tableMultiplication(int a){
+        int b = (int) sqrt(a);
+        int s = String.valueOf(a).length();
+        System.out.printf("%"+(s+s+1)+"d",1);
+        for (int i=2;i<=b;i++) {
+            System.out.printf("%"+(s+1)+"d", i);
         }
-
-        return prime.stream().mapToInt(Integer::intValue).toArray();
+        System.out.println();
+        for (int i = 1; i <= b; i++ ){
+            System.out.printf("%"+s+"d", i);
+            for(int j = 1; j <= b; j++){
+                System.out.printf("%"+(s+1)+"d", i * j);
+            }
+            System.out.println();
+        }
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int a = sc.nextInt();
-        int b = sc.nextInt();
-        int [] prime = Prime (a,b);
-        System.out.println(Arrays.toString(prime));
+        //можно сделать используя матрицы
+        tableMultiplication(a);
     }
 }
