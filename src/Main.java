@@ -6,26 +6,34 @@
 *
 * */
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void OutCntComputer(int n){
-        switch(n%10){
-            case 1:
-                System.out.println(n+" компьютер");
-                break;
-            case 2,3,4:
-                System.out.println(n+" компьютера");
-                break;
-            default:
-                System.out.println(n+" компьютеров");
-                break;
+    public static int[] NOD(int[] mass){
+        Arrays.sort(mass);//Так ищем делителей всех чисел то НОД не превышает минимального числа в массиве
+        int min = mass[0];
+        List<Integer> nod = new ArrayList<Integer>();
+        for (int i = 2; i <= min; i++ ){
+            boolean isNod = true;
+            for(int m: mass){
+                if (m % i != 0){
+                    isNod = false;
+                    break;
+                }
+            }
+            if (isNod) nod.add(i) ;
         }
+
+        return nod.stream().mapToInt(Integer::intValue).toArray();
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        OutCntComputer(n);
-
+        String n = sc.nextLine();//ввод элементов через пробел: 1 2 3 4
+        int[] numbers = Arrays.stream(n.split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[] nod = NOD(numbers);
+        System.out.println(Arrays.toString(nod));
     }
 }
