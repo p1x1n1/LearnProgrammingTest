@@ -1,10 +1,7 @@
 /*
-*  Разработайте функцию, которая принимает целое число в качестве аргумента и возвращает строку, содержащую это число и слово "компьютер"
-*  в нужном склонении по падежам в зависимости от числа. Например, при вводе числа 25 функция
-*  должна возвращать "25 компьютеров", для числа 41 — "41 компьютер",
-* а для числа 1048 — "1048 компьютеров".
-*
-* */
+*   Написать функцию/метод, которая возвращает массив простых чисел в диапазоне (2 числа - минимальное и максимальное) заданных чисел.
+Например, на вход переданы 2 числа: от 11 до 20  (диапазон считается включая граничные значения).
+ */
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,28 +9,27 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static int[] NOD(int[] mass){
-        Arrays.sort(mass);//Так ищем делителей всех чисел то НОД не превышает минимального числа в массиве
-        int min = mass[0];
-        List<Integer> nod = new ArrayList<Integer>();
-        for (int i = 2; i <= min; i++ ){
-            boolean isNod = true;
-            for(int m: mass){
-                if (m % i != 0){
-                    isNod = false;
+    public static int[] Prime(int a,int b){
+        List<Integer> prime = new ArrayList<Integer>();
+
+        for (int i = a; i <= b; i++ ){
+            boolean isPrime = true;
+            for(int j = 2; j <= i / 2; j++){
+                if (i % j == 0){
+                    isPrime = false;
                     break;
                 }
             }
-            if (isNod) nod.add(i) ;
+            if (isPrime) prime.add(i) ;
         }
 
-        return nod.stream().mapToInt(Integer::intValue).toArray();
+        return prime.stream().mapToInt(Integer::intValue).toArray();
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String n = sc.nextLine();//ввод элементов через пробел: 1 2 3 4
-        int[] numbers = Arrays.stream(n.split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] nod = NOD(numbers);
-        System.out.println(Arrays.toString(nod));
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int [] prime = Prime (a,b);
+        System.out.println(Arrays.toString(prime));
     }
 }
